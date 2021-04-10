@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">computervision</string>
+    <string name="endPoint">https://facevivekapp.cognitiveservices.azure.com/</string>
+    <string name="key1">153049311c3149938a6f9c0d25194625</string>
+</resources>

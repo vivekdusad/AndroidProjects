@@ -1,0 +1,2 @@
+rootProject.name='user tracking'
+include ':app'

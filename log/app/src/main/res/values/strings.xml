@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">log</string>
+    <string name="vivek">vivek pressed the button</string>
+    <string name="button">Button</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="name">Name</string>
+</resources>

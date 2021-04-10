@@ -1,0 +1,2 @@
+rootProject.name='cameraimport'
+include ':app'
