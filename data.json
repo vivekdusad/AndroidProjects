@@ -1,0 +1,121 @@
+{
+	"users": [{
+			"userID":1,
+			"firstname": "Gaurav",
+			"lastname": "Sharma",
+			"mobileNumber": "9876543210",
+			"location": "lst",
+			"email": "sharma@gmail.com",
+			"username": "coolgourav147",
+			"password": "kjhgfdsadfghjkgfds",
+			"isActive": true,
+			"isEmployee": false,
+			"categoryId": 1,
+			"createdBy": "userId",
+			"photoURL": "https://www.niemanlab.org/images/Greg-Emerson-edit-2.jpg"
+			
+
+
+		},
+		{
+			"userID":2,
+			"firstname": "Vivek",
+			"lastname": "Dusad",
+			"mobileNumber": "830135675",
+			"location": "lst",
+			"email": "sharma@gmail.com",
+			"username": "coolgourav147",
+			"password": "kjhgfdsadfghjkgfds",
+			"isActive": true,
+			"isEmployee": false,
+			"categoryId": 1,
+			"createdBy": "userId",
+			"photoURL": "https://www.niemanlab.org/images/Greg-Emerson-edit-2.jpg"
+		},
+		{
+			"userID":3,
+			"firstname": "Vivek",
+			"lastname": "Dusad",
+			"mobileNumber": "830135675",
+			"location": "lst",
+			"email": "sharma@gmail.com",
+			"username": "coolgourav147",
+			"password": "kjhgfdsadfghjkgfds",
+			"isActive": true,
+			"isEmployee": false,
+			"categoryId": 1,
+			"createdBy": "userId",
+			"photoURL": "https://www.niemanlab.org/images/Greg-Emerson-edit-2.jpg"
+		}
+		
+
+	],
+	"category": [{
+			"id": 1,
+			"name": "Electrican",
+			"photoURL": "https://www.flaticon.com/svg/vstatic/svg/780/780500.svg?token=exp=1618731522~hmac=6bfe125fc9e27955396f4558d79ad4f8",
+			"desc": "Service Related to Electircal Work"
+		},
+		{
+			"id": 2,
+			"name": "Plumber",
+			"photoURL": "https://www.flaticon.com/svg/vstatic/svg/780/780500.svg?token=exp=1618731522~hmac=6bfe125fc9e27955396f4558d79ad4f8",
+			"desc": "Service Related to Pipes Work"
+		},
+		{
+			"id": 3,
+			"name": "Carpenter",
+			"photoURL": "https://www.flaticon.com/svg/vstatic/svg/780/780500.svg?token=exp=1618731522~hmac=6bfe125fc9e27955396f4558d79ad4f8g",
+			"desc": "Service Related to Wood Work"
+		},
+		{
+			"id": 4,
+			"name": "Carpenter",
+			"photoURL": "https://www.flaticon.com/svg/vstatic/svg/780/780500.svg?token=exp=1618731522~hmac=6bfe125fc9e27955396f4558d79ad4f8",
+			"desc": "Service Related to Wood Work"
+		},
+		{
+			"id": 5,
+			"name": "Carpenter",
+			"photoURL": "https://www.flaticon.com/svg/vstatic/svg/780/780500.svg?token=exp=1618731522~hmac=6bfe125fc9e27955396f4558d79ad4f8",
+			"desc": "Service Related to Wood Work"
+		},
+		{
+			"id": 5,
+			"name": "Carpenter",
+			"photoURL": "https://www.flaticon.com/svg/vstatic/svg/780/780500.svg?token=exp=1618731522~hmac=6bfe125fc9e27955396f4558d79ad4f8",
+			"desc": "Service Related to Wood Work"
+		}
+
+
+	],
+	"location": [{
+			"userID": 1,
+			"lat": 455454.204454,
+			"lon": 4564641218.2131231,
+			"state": "rajasthan",
+			"city": "lalsot",
+			"dist": "dausa",
+			"pincode": "303503"
+		},
+		{
+			"userID": 2,
+			"lat": 455454.204454,
+			"lon": 4564641218.2131231,
+			"state": "rajasthan",
+			"city": "Jaipur",
+			"dist": "Jaipur",
+			"pincode": "302015"
+		},
+		{
+			"userID": 3,
+			"lat": 455454.204454,
+			"lon": 4564641218.2131231,
+			"state": "rajasthan",
+			"city": "lalsot",
+			"dist": "dausa",
+			"pincode": "303503"
+		}
+	]
+}
+
