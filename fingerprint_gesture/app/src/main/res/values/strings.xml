@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">fingerprint_gesture</string>
+    <string name="accessibility_service_description">Vivek</string>
+</resources>

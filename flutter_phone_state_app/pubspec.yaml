@@ -31,6 +31,7 @@ dependencies:
 
   flutter_phone_direct_caller: ^2.0.0
   call_log: ^3.0.2
+  flutter_phone_state: ^0.5.8
 
 
 dev_dependencies:

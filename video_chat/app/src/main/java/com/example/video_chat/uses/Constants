@@ -1,0 +1,11 @@
+package com.example.video_chat.uses;
+
+
+public class Constants {
+    public static final String STDBY_SUFFIX = "-stdby";
+    public static final String PUB_KEY = "pub-c-825b0b0b-f994-426e-b99f-b5246bd41b55"; // Use Your Pub Key
+    public static final String SUB_KEY = "sub-c-aad8c3d6-cdc7-11eb-a572-a6433017f026"; // Use Your Sub Key
+    public static final String USER_NAME = "user_name";
+    public static final String JSON_CALL_USER = "call_user";
+
+}

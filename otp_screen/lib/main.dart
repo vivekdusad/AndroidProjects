@@ -1,284 +1,328 @@
-import 'dart:async';
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:otp_screen/tile.dart';
 
 void main() {
   runApp(MyApp());
 }
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  bool value = false;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: PinCodeVerificationScreen(
-          "+8801376221100"), // a random number, please don't call xD
-    );
-  }
-}
-
-class PinCodeVerificationScreen extends StatefulWidget {
-  final String phoneNumber;
-
-  PinCodeVerificationScreen(this.phoneNumber);
-
-  @override
-  _PinCodeVerificationScreenState createState() =>
-      _PinCodeVerificationScreenState();
-}
-
-class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
-  var onTapRecognizer;
-
-  TextEditingController textEditingController = TextEditingController();
-  // ..text = "123456";
-
-  StreamController<ErrorAnimationType> errorController;
-
-  bool hasError = false;
-  String currentText = "";
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  final formKey = GlobalKey<FormState>();
-
-  @override
-  void initState() {
-    onTapRecognizer = TapGestureRecognizer()
-      ..onTap = () {
-        Navigator.pop(context);
-      };
-    errorController = StreamController<ErrorAnimationType>();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    errorController.close();
-
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.blue.shade50,
-      key: scaffoldKey,
-      body: GestureDetector(
-        onTap: () {},
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: ListView(
-            children: <Widget>[
-              SizedBox(height: 30),
-              Container(
-                height: MediaQuery.of(context).size.height / 3,
-                child: Lottie.network("https://assets3.lottiefiles.com/packages/lf20_iZXXuz.json"),
-              ),
-              SizedBox(height: 8),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Text(
-                  'Phone Number Verification',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
-                  textAlign: TextAlign.center,
+      home: Scaffold(
+        body: SettingsList(
+          sections: [
+            SettingsSection(
+              title: 'General',
+              tiles: [
+                SettingsTile(
+                  title: 'Language',
+                  subtitle: 'English',
+                  leading: Icon(Icons.language),
+                  onPressed: (BuildContext context) {},
                 ),
-              ),
-              Padding(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8),
-                child: RichText(
-                  text: TextSpan(
-                      text: "Enter the code sent to ",
-                      children: [
-                        TextSpan(
-                            text: widget.phoneNumber,
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15)),
-                      ],
-                      style: TextStyle(color: Colors.black54, fontSize: 15)),
-                  textAlign: TextAlign.center,
+                SettingsTile.switchTile(
+                  title: 'Dark Mode',
+                  leading: Icon(Icons.dark_mode),
+                  switchValue: value,
+                  onToggle: (bool value) {},
                 ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Form(
-                key: formKey,
-                child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 30),
-                    child: PinCodeTextField(
-                      appContext: context,
-                      pastedTextStyle: TextStyle(
-                        color: Colors.green.shade600,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      length: 6,
-                      obscureText: false,
-                      obscuringCharacter: '*',
-                      animationType: AnimationType.fade,
-                      validator: (v) {
-                        if (v.length < 3) {
-                          return "I'm from validator";
-                        } else {
-                          return null;
-                        }
-                      },
-                      pinTheme: PinTheme(
-                        shape: PinCodeFieldShape.box,
-                        borderRadius: BorderRadius.circular(5),
-                        fieldHeight: 60,
-                        fieldWidth: 50,
-                        activeFillColor:
-                        hasError ? Colors.orange : Colors.white,
-                      ),
-                      cursorColor: Colors.black,
-                      animationDuration: Duration(milliseconds: 300),
-                      textStyle: TextStyle(fontSize: 20, height: 1.6),
-                      backgroundColor: Colors.blue.shade50,
-                      enableActiveFill: true,
-                      errorAnimationController: errorController,
-                      controller: textEditingController,
-                      keyboardType: TextInputType.number,
-                      boxShadows: [
-                        BoxShadow(
-                          offset: Offset(0, 1),
-                          color: Colors.black12,
-                          blurRadius: 10,
-                        )
-                      ],
-                      onCompleted: (v) {
-                        print("Completed");
-                      },
-                      // onTap: () {
-                      //   print("Pressed");
-                      // },
-                      onChanged: (value) {
-                        print(value);
-                        setState(() {
-                          currentText = value;
-                        });
-                      },
-                      beforeTextPaste: (text) {
-                        print("Allowing to paste $text");
-                        //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
-                        //but you can show anything you want here, like your pop up saying wrong paste format or etc
-                        return true;
-                      },
-                    )),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                child: Text(
-                  hasError ? "*Please fill up all the cells properly" : "",
-                  style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400),
+              ],
+            ),
+            SettingsSection(
+              title: 'Account',
+              tiles: [
+                SettingsTile(
+                  title: 'Edit Profile',
+
+                  leading: Icon(Icons.person),
+                  onPressed: (BuildContext context) {},
                 ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                    text: "Didn't receive the code? ",
-                    style: TextStyle(color: Colors.black54, fontSize: 15),
-                    children: [
-                      TextSpan(
-                          text: " RESEND",
-                          recognizer: onTapRecognizer,
-                          style: TextStyle(
-                              color: Color(0xFF91D3B3),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16))
-                    ]),
-              ),
-              SizedBox(
-                height: 14,
-              ),
-              Container(
-                margin:
-                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
-                child: ButtonTheme(
-                  height: 50,
-                  child: FlatButton(
-                    onPressed: () {
-                      formKey.currentState.validate();
-                      // conditions for validating
-                      if (currentText.length != 6 || currentText != "towtow") {
-                        errorController.add(ErrorAnimationType
-                            .shake); // Triggering error shake animation
-                        setState(() {
-                          hasError = true;
-                        });
-                      } else {
-                        setState(() {
-                          hasError = false;
-                          scaffoldKey.currentState.showSnackBar(SnackBar(
-                            content: Text("Aye!!"),
-                            duration: Duration(seconds: 2),
-                          ));
-                        });
-                      }
-                    },
-                    child: Center(
-                        child: Text(
-                          "VERIFY".toUpperCase(),
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                        )),
-                  ),
-                ),
-                decoration: BoxDecoration(
-                    color: Colors.green.shade300,
-                    borderRadius: BorderRadius.circular(5),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.green.shade200,
-                          offset: Offset(1, -2),
-                          blurRadius: 5),
-                      BoxShadow(
-                          color: Colors.green.shade200,
-                          offset: Offset(-1, 2),
-                          blurRadius: 5)
-                    ]),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  FlatButton(
-                    child: Text("Clear"),
-                    onPressed: () {
-                      textEditingController.clear();
-                    },
-                  ),
-                  FlatButton(
-                    child: Text("Set Text"),
-                    onPressed: () {
-                      textEditingController.text = "123456";
-                    },
-                  ),
-                ],
-              )
-            ],
-          ),
+                SettingsTile(title: 'Change Password',
+                leading: Icon(Icons.lock),),
+                SettingsTile(title: "Logout",leading: Icon(Icons.logout),)
+
+              ],
+            ),
+          ],
         ),
       ),
     );
   }
 }
+//import 'package:flutter/foundation.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter/widgets.dart';
+//
+//
+//
+// const Color mediumGrayColor = Color(0xFFC7C7CC);
+// const Color itemPressedColor = Color(0xFFD9D9D9);
+// const Color borderColor = Color(0xFFBCBBC1);
+// const Color borderLightColor = Color.fromRGBO(49, 44, 51, 1);
+// const Color backgroundGray = Color(0xFFEFEFF4);
+// const Color groupSubtitle = Color(0xFF777777);
+// const Color iosTileDarkColor = Color.fromRGBO(28, 28, 30, 1);
+// const Color iosPressedTileColorDark = Color.fromRGBO(44, 44, 46, 1);
+// const Color iosPressedTileColorLight = Color.fromRGBO(230, 229, 235, 1);
+//
+// const defaultTitlePadding = EdgeInsets.only(
+//   left: 15.0,
+//   right: 15.0,
+//   bottom: 6.0,
+// );
+// enum _SettingsTileType { simple, switchTile }
+//
+// class SettingsTile extends StatelessWidget {
+//   final String title;
+//   final int titleMaxLines;
+//   final String subtitle;
+//   final int subtitleMaxLines;
+//   final Widget leading;
+//   final Widget trailing;
+//   final Icon iosChevron;
+//   final EdgeInsetsGeometry iosChevronPadding;
+//   final VoidCallback onTap;
+//   final Function(BuildContext context) onPressed;
+//   final Function(bool value) onToggle;
+//   final bool switchValue;
+//   final bool enabled;
+//   final TextStyle titleTextStyle;
+//   final TextStyle subtitleTextStyle;
+//   final Color switchActiveColor;
+//   final _SettingsTileType _tileType;
+//
+//    SettingsTile({
+//     Key key,
+//     @required this.title,
+//     this.titleMaxLines,
+//     this.subtitle,
+//     this.subtitleMaxLines,
+//     this.leading,
+//     this.trailing,
+//
+//     @Deprecated('Use onPressed instead') this.onTap,
+//     this.titleTextStyle,
+//     this.subtitleTextStyle,
+//     this.enabled = true,
+//     this.onPressed,
+//     this.switchActiveColor, this.iosChevron, this.iosChevronPadding,
+//   })  : _tileType = _SettingsTileType.simple,
+//         onToggle = null,
+//         switchValue = null,
+//         assert(titleMaxLines == null || titleMaxLines > 0),
+//         assert(subtitleMaxLines == null || subtitleMaxLines > 0),
+//         super(key: key);
+//
+//   const SettingsTile.switchTile({
+//     Key key,
+//     @required this.title,
+//     this.titleMaxLines,
+//     this.subtitle,
+//     this.subtitleMaxLines,
+//     this.leading,
+//     this.enabled = true,
+//     this.trailing,
+//     @required this.onToggle,
+//     @required this.switchValue,
+//     this.titleTextStyle,
+//     this.subtitleTextStyle,
+//     this.switchActiveColor,
+//   })  : _tileType = _SettingsTileType.switchTile,
+//         onTap = null,
+//         onPressed = null,
+//         iosChevron = null,
+//         iosChevronPadding = null,
+//         assert(titleMaxLines == null || titleMaxLines > 0),
+//         assert(subtitleMaxLines == null || subtitleMaxLines > 0),
+//         super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     final platform = Theme.of(context).platform;
+//         return androidTile(context);
+//     }
+//
+//
+//
+//
+//   Widget androidTile(BuildContext context) {
+//     if (_tileType == _SettingsTileType.switchTile) {
+//       return SwitchListTile(
+//         secondary: leading,
+//         value: switchValue,
+//         activeColor: switchActiveColor,
+//         onChanged: enabled ? onToggle : null,
+//         title: Text(
+//           title,
+//           style: titleTextStyle,
+//           maxLines: titleMaxLines,
+//           overflow: TextOverflow.ellipsis,
+//         ),
+//         subtitle: subtitle != null
+//             ? Text(
+//           subtitle,
+//           style: subtitleTextStyle,
+//           maxLines: subtitleMaxLines,
+//           overflow: TextOverflow.ellipsis,
+//         )
+//             : null,
+//       );
+//     } else {
+//       return ListTile(
+//         title: Text(title, style: titleTextStyle),
+//         subtitle: subtitle != null
+//             ? Text(
+//           subtitle,
+//           style: subtitleTextStyle,
+//           maxLines: subtitleMaxLines,
+//           overflow: TextOverflow.ellipsis,
+//         )
+//             : null,
+//         leading: leading,
+//         enabled: enabled,
+//         trailing: trailing,
+//         onTap: onTapFunction(context) as void Function(),
+//       );
+//     }
+//   }
+//
+//   Function onTapFunction(BuildContext context) =>
+//       onTap != null || onPressed != null
+//           ? () {
+//         if (onPressed != null) {
+//           onPressed.call(context);
+//         } else {
+//           onTap.call();
+//         }
+//       }
+//           : null;
+// }
+// abstract class AbstractSection extends StatelessWidget {
+//   bool showBottomDivider = false;
+//   final String title;
+//   final EdgeInsetsGeometry titlePadding;
+//
+//   AbstractSection({Key key, this.title, this.titlePadding}) : super(key: key);
+// }
+// // ignore: must_be_immutable
+// class SettingsSection extends AbstractSection {
+//   final List<SettingsTile> tiles;
+//   final TextStyle titleTextStyle;
+//   final int maxLines;
+//   final Widget subtitle;
+//   final EdgeInsetsGeometry subtitlePadding;
+//
+//   SettingsSection({
+//     Key key,
+//     String title,
+//     EdgeInsetsGeometry titlePadding = defaultTitlePadding,
+//     this.maxLines,
+//     this.subtitle,
+//     this.subtitlePadding = defaultTitlePadding,
+//     this.tiles,
+//     this.titleTextStyle,
+//   })  : assert(maxLines == null || maxLines > 0),
+//         super(key: key, title: title, titlePadding: titlePadding);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     final platform = Theme.of(context).platform;
+//
+//     return androidSection(context);
+//
+//
+//     }
+//
+//
+//
+//
+//   Widget androidSection(BuildContext context) {
+//     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+//       if (title != null)
+//         Padding(
+//           padding: titlePadding,
+//           child: Text(
+//             title,
+//             style: titleTextStyle ??
+//                 TextStyle(
+//                   color: Theme.of(context).accentColor,
+//                   fontWeight: FontWeight.bold,
+//                 ),
+//             maxLines: maxLines,
+//             overflow: TextOverflow.ellipsis,
+//           ),
+//         ),
+//       if (subtitle != null)
+//         Padding(
+//           padding: subtitlePadding,
+//           child: subtitle,
+//         ),
+//       ListView.separated(
+//         physics: NeverScrollableScrollPhysics(),
+//         shrinkWrap: true,
+//         itemCount: tiles.length,
+//         separatorBuilder: (BuildContext context, int index) =>
+//             Divider(height: 1),
+//         itemBuilder: (BuildContext context, int index) {
+//           return tiles[index];
+//         },
+//       ),
+//       if (showBottomDivider) Divider(height: 1)
+//     ]);
+//   }
+// }
+// class SettingsList extends StatelessWidget {
+//   final bool shrinkWrap;
+//   final ScrollPhysics physics;
+//   final List<AbstractSection> sections;
+//   final Color backgroundColor;
+//   final Color lightBackgroundColor;
+//   final Color darkBackgroundColor;
+//   final EdgeInsetsGeometry contentPadding;
+//
+//   const SettingsList({
+//     Key key,
+//     this.sections,
+//     this.backgroundColor,
+//     this.physics,
+//     this.shrinkWrap = false,
+//     this.lightBackgroundColor,
+//     this.darkBackgroundColor,
+//     this.contentPadding,
+//   }) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Material(
+//       child: Ink(
+//         color: Theme.of(context).brightness == Brightness.light
+//             ? backgroundColor ?? lightBackgroundColor ?? backgroundGray
+//             : backgroundColor ?? darkBackgroundColor ?? Colors.black,
+//         child: ListView.builder(
+//           physics: physics,
+//           shrinkWrap: shrinkWrap,
+//           padding: contentPadding,
+//           itemCount: sections.length,
+//           itemBuilder: (context, index) {
+//             AbstractSection current = sections[index];
+//             AbstractSection futureOne;
+//             if (index + 1 != sections.length) {
+//               futureOne = sections[index + 1];
+//             }
+//
+//             // Add divider if title is null
+//             if (futureOne != null && futureOne.title != null) {
+//               current.showBottomDivider = false;
+//               return current;
+//             } else {
+//               current.showBottomDivider = true;
+//               return current;
+//             }
+//           },
+//         ),
+//       ),
+//     );
+//   }
+// }
